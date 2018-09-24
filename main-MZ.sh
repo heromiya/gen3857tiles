@@ -15,7 +15,7 @@
 
 ZLEVEL=15 # Tile size is 1223 x 1223 m
 PREREQ="var tilebelt = require('tilebelt');"
-DB=assignmentTiles-LK.sqlite
+DB=assignmentTiles-MZ.sqlite
 
 rm -f $DB
 spatialite $DB <<EOF
@@ -28,15 +28,17 @@ CREATE TABLE tiles (
 SELECT AddGeometryColumn('tiles', 'the_geom' ,4326, 'POLYGON', 'XY');
 EOF
 
+SQL=/tmp/$$.insert.sql
+ROIS=/tmp/$$.ROI.txt
+rm -f $SQL $ROIS
+
 #ogrinfo LK-PPL-1km.gpkg -al | grep -e minx -e maxx -e miny -e maxy | grep = | awk 'BEGIN{OFS="|"}/minx/{minx=$4}/maxx/{maxx=$4}/miny/{miny=$4}/maxy/{maxy=$4; print minx,maxx,miny,maxy}' > ROI.txt
-sqlite3 LK-PPL-1km.gpkg "select minx,maxx,miny,maxy from 'rtree_LK-PPL-1km_geom'" > ROI.txt
+sqlite3 MZ-PPL-1km.gpkg "select minx,maxx,miny,maxy from 'rtree_LK-PPL-1km_geom'" > $ROIS
 
 IFS='
 '
 
-SQL=/tmp/$$.insert.sql
-rm -f $SQL
-for ROI in `cat ROI.txt`; do
+for ROI in `cat $ROIS`; do
 
     LONMIN=`echo $ROI | cut -f 1 -d '|'`
     LONMAX=`echo $ROI | cut -f 2 -d '|'`
