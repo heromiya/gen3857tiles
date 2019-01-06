@@ -7,7 +7,7 @@ export DB=geonames/$CNT.sqlite
 make $DB ROI/$CNT.ROI.txt
 
 export ZLEVEL=17 # Tile size is 307 x 307 m
-PREREQ="var tilebelt = require('tilebelt');"
+PREREQ="var tilebelt = require('@mapbox/tilebelt');"
 
 IFS='
 '
