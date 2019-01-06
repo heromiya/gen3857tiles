@@ -1,18 +1,5 @@
 # /bin/bash
 
-# Panghan
-#LONMAX=100.08
-#LONMAX=99.70
-#LONMIN=99.69
-#LATMAX=9.70
-#LATMIN=9.67
-
-#Savannakhet Extent: (104.732625, 15.876399) - (106.798488, 17.113576)
-#LONMAX=106.798488
-#LONMIN=104.732625
-#LATMAX=17.113576
-#LATMIN=15.876399
-
 export CNT=KE
 export BUF=0.025 # approx 3 km
 export DB=geonames/$CNT.sqlite

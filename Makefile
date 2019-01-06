@@ -1,4 +1,5 @@
 geonames/$(CNT).zip:
+	mkdir -p `mkdir dirname $@`
 	wget -q http://download.geonames.org/export/dump/$(CNT).zip -O $@
 geonames/$(CNT).txt: geonames/$(CNT).zip
 	unzip -f $< -d geonames
