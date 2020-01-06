@@ -1,7 +1,7 @@
 # /bin/bash
 
 export CNT=KE
-export BUF=0.025 # approx 3 km
+export BUF=0.008333333 # approx 1 km
 export DB=geonames/$CNT.sqlite
 
 make $DB ROI/$CNT.ROI.txt
