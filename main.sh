@@ -1,9 +1,11 @@
 # /bin/bash
 
-export CNT=KE
-export BUF=0.008333333 # approx 1 km
+export CNT=ZM
+export GADM0=ZMB
+export BUF=0.0041666665 # approx 0.5 km
 export DB=geonames/$CNT.sqlite
 
+rm -f $DB
 make $DB ROI/$CNT.ROI.txt
 
 export ZLEVEL=17 # Tile size is 307 x 307 m
@@ -27,7 +29,7 @@ function sql_insert() {
 	TILELATMIN=${BB[1]}
 	TILELONMAX=${BB[2]}
 	TILELATMAX=${BB[3]}
-	echo "INSERT INTO tiles (qkey, geom, x, y) VALUES ('$QKey',ST_GeomFromText('POLYGON (($TILELONMIN $TILELATMIN, $TILELONMIN $TILELATMAX, $TILELONMAX $TILELATMAX, $TILELONMAX $TILELATMIN, $TILELONMIN $TILELATMIN))', 4326), $XTILE, $YTILE);" >> $SQL
+	echo "INSERT INTO tiles (qkey, geom, x, y, gadm0 VALUES ('$QKey',ST_GeomFromText('POLYGON (($TILELONMIN $TILELATMIN, $TILELONMIN $TILELATMAX, $TILELONMAX $TILELATMAX, $TILELONMAX $TILELATMIN, $TILELONMIN $TILELATMIN))', 4326), $XTILE, $YTILE, '$GADM0');" >> $SQL
     fi
 }
 export -f sql_insert

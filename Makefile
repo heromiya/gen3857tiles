@@ -11,7 +11,7 @@ geonames/$(CNT).sqlite: geonames/$(CNT).txt
 	spatialite $@ "UPDATE $(CNT) SET geom = Buffer(MakePoint(longitude, latitude, 4326),$(BUF))"
 	spatialite $@ "DELETE FROM geometry_columns WHERE f_table_name = 'tiles';"
 	spatialite $@ "DROP TABLE IF EXISTS tiles;"
-	spatialite $@ "CREATE TABLE tiles (gid integer primary key AUTOINCREMENT,qkey varchar(64), x integer, y integer);"
+	spatialite $@ "CREATE TABLE tiles (gid integer primary key AUTOINCREMENT,qkey varchar(64), x integer, y integer, gadm0 char(3));"
 	spatialite $@ "SELECT AddGeometryColumn('tiles', 'geom' ,4326, 'POLYGON', 'XY');"
 
 ROI/$(CNT).ROI.txt: geonames/$(CNT).sqlite
