@@ -5,6 +5,10 @@ ogr2ogr -overwrite -f SQLite $DB osm_natural.gpkg osm_natural_vec #SELECT geom, 
 ogr2ogr -overwrite -f SQLite $DB exclude.gpkg exclude
 spatialite "$DB" <<EOF
 
+SELECT CreateSpatialIndex('tilepolygon','geom');
+SELECT CreateSpatialIndex('osm_natural_vec','GEOMETRY');
+
+
 DROP TABLE IF EXISTS tilepolygon_5percent;
 CREATE TABLE tilepolygon_5percent AS
 
